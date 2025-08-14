@@ -12,6 +12,8 @@ import PaymentMethodSelector from "@/components/sales/payment-method-selector";
 import FinalizeSaleButton from "@/components/sales/finalize-sale-button";
 import SalesTable from "@/components/sales/table";
 
+export const dynamic = "force-dynamic";
+
 export default async function Home() {
   const productsWithVariants =
     (await getProductsWithVariants()) as ProductListItem[];
