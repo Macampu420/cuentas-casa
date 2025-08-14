@@ -16,6 +16,8 @@ export default async function Home() {
   const productsWithVariants =
     (await getProductsWithVariants()) as ProductListItem[];
 
+  console.log(productsWithVariants);
+
   return (
     <main className="font-sans flex flex-col items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
       <SalesProvider>
