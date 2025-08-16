@@ -1,6 +1,6 @@
 import { db } from "@/db/client";
 import { products, productVariants } from "./models";
-import { eq, sql } from "drizzle-orm";
+import { asc, eq, sql } from "drizzle-orm";
 import { ProductCreateInput, productVariantInput } from "./types";
 
 export async function createProduct(params: {
@@ -77,5 +77,6 @@ export async function getProductsWithVariants() {
     })
     .from(products)
     .leftJoin(productVariants, eq(products.id, productVariants.productId))
-    .groupBy(products.id);
+    .groupBy(products.id)
+    .orderBy(asc(products.name));
 }
