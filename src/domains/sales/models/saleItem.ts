@@ -1,11 +1,5 @@
 import { relations } from "drizzle-orm";
-import {
-  integer,
-  numeric,
-  pgTable,
-  timestamp,
-  uuid,
-} from "drizzle-orm/pg-core";
+import { integer, pgTable, timestamp, uuid } from "drizzle-orm/pg-core";
 import { organizationEnum } from "@/domains/shared/models/enums";
 import { sales } from "./sale";
 import { productVariants } from "@/domains/products/models/productVariant";

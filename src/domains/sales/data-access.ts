@@ -3,7 +3,7 @@ import { SaleInputSchema } from "./schemas/sale";
 import { SaleInput } from "./types";
 import { sales } from "./models/sale";
 import { saleItems } from "./models/saleItem";
-import { and, eq, sum, gte, lte } from "drizzle-orm";
+import { and, gte, lte } from "drizzle-orm";
 
 export async function createSale(saleInput: SaleInput) {
   const parsed = SaleInputSchema.parse(saleInput);

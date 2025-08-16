@@ -152,7 +152,7 @@ export function SalesProvider({ children }: { children: React.ReactNode }) {
       buildSaleCreateInput,
       createSale,
     }),
-    [saleItems, totals, paymentMethod]
+    [saleItems, totals, paymentMethod, buildSaleCreateInput, createSale]
   );
 
   return (

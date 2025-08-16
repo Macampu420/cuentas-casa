@@ -1,5 +1,6 @@
 "use client";
 
+import { PaymentMethod } from "@/domains/sales/types";
 import { useSales } from "@/providers/sales/state";
 
 export default function PaymentMethodSelector() {
@@ -14,8 +15,8 @@ export default function PaymentMethodSelector() {
             type="radio"
             name="payment-method"
             value="cash"
-            checked={paymentMethod === "cash"}
-            onChange={() => changePaymentMethod("cash")}
+            checked={paymentMethod === PaymentMethod.CASH}
+            onChange={() => changePaymentMethod(PaymentMethod.CASH)}
             className="accent-[#0ea5a3]"
           />
           <span className="font-semibold">Efectivo</span>
@@ -25,8 +26,8 @@ export default function PaymentMethodSelector() {
             type="radio"
             name="payment-method"
             value="qr_code"
-            checked={paymentMethod === "qr_code"}
-            onChange={() => changePaymentMethod("qr_code")}
+            checked={paymentMethod === PaymentMethod.QR}
+            onChange={() => changePaymentMethod(PaymentMethod.QR)}
             className="accent-[#0ea5a3]"
           />
           <span className="font-semibold">QR</span>
@@ -36,8 +37,8 @@ export default function PaymentMethodSelector() {
             type="radio"
             name="payment-method"
             value="mixed"
-            checked={paymentMethod === "mixed"}
-            onChange={() => changePaymentMethod("mixed")}
+            checked={paymentMethod === PaymentMethod.MIXED}
+            onChange={() => changePaymentMethod(PaymentMethod.MIXED)}
             className="accent-[#0ea5a3]"
           />
           <span className="font-semibold">Mixto</span>

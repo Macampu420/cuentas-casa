@@ -162,9 +162,7 @@ export default function ProductDialogForm(props: ProductDialogFormProps) {
                         <Controller
                           control={control}
                           name={unitPricePath}
-                          render={({
-                            field: { value, onChange, onBlur, ref },
-                          }) => (
+                          render={({ field: { value, onChange, onBlur } }) => (
                             <NumericFormat
                               id={`variant-price-${index}`}
                               value={value ?? ""}

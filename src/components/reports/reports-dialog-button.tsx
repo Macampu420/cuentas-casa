@@ -1,6 +1,5 @@
 "use client";
 
-import { useProductDialog } from "@/providers/products/dialog";
 import { Button } from "../ui/button";
 import { useReports } from "@/providers/reports/state";
 

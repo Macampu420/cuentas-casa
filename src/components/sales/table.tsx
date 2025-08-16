@@ -1,6 +1,6 @@
 "use client";
 
-import { SaleItemState, useSales } from "@/providers/sales/state";
+import { useSales } from "@/providers/sales/state";
 import { formatCOP } from "../products/products-list";
 
 export default function SalesTable() {

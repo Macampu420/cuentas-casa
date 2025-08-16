@@ -31,15 +31,6 @@ const ProductVariantOutputSchema = z.object({
   updatedAt: z.string(),
 });
 
-const ProductCreateOutputSchema = z.object({
-  id: z.string().uuid(),
-  organization: z.enum(organizationEnumValues),
-  name: z.string(),
-  createdAt: z.string(),
-  updatedAt: z.string(),
-  variants: z.array(ProductVariantOutputSchema),
-});
-
 export async function POST(request: NextRequest) {
   try {
     const raw = await request.json();
