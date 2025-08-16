@@ -11,6 +11,9 @@ import { SalesProvider } from "@/providers/sales/state";
 import PaymentMethodSelector from "@/components/sales/payment-method-selector";
 import FinalizeSaleButton from "@/components/sales/finalize-sale-button";
 import SalesTable from "@/components/sales/table";
+import ReportsDialogButton from "@/components/reports/reports-dialog-button";
+import { ReportsProvider } from "@/providers/reports/state";
+import TodaySalesDialog from "@/components/reports/today-sales-dialog";
 
 export const dynamic = "force-dynamic";
 
@@ -18,15 +21,15 @@ export default async function Home() {
   const productsWithVariants =
     (await getProductsWithVariants()) as ProductListItem[];
 
-  console.log(productsWithVariants);
-
   return (
-    <main className="font-sans flex flex-col items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
+    <main className="font-sans flex flex-col items-center justify-items-center min-h-screen p-5 pb-20 gap-16">
       <SalesProvider>
         <ProductsProvider initialProducts={productsWithVariants}>
           <ProductsList />
           <section>
-            No ves el producto que buscas?
+            <span className="text-xl font-bold mr-4">
+              No ves el producto que buscas?
+            </span>
             <ProductDialogProvider>
               <ProductDialogButton />
               <ProductDialog />
@@ -35,6 +38,10 @@ export default async function Home() {
           <SalesTable />
           <PaymentMethodSelector />
           <FinalizeSaleButton />
+          <ReportsProvider>
+            <ReportsDialogButton />
+            <TodaySalesDialog />
+          </ReportsProvider>
         </ProductsProvider>
       </SalesProvider>
     </main>

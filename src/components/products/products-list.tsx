@@ -101,9 +101,8 @@ export default function ProductsList() {
                       −
                     </Button>
                     <span className="inline-flex min-w-8 justify-center rounded-md bg-white/20 px-2 py-1 text-white font-bold">
-                      {saleItems.find(
-                        item => item.productVariantId === variant.id
-                      )?.quantity ?? 0}
+                      {saleItems.find(item => item.variantId === variant.id)
+                        ?.quantity ?? 0}
                     </span>
                     <Button
                       type="button"

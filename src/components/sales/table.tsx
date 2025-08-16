@@ -1,6 +1,6 @@
 "use client";
 
-import { useSales } from "@/providers/sales/state";
+import { SaleItemState, useSales } from "@/providers/sales/state";
 import { formatCOP } from "../products/products-list";
 
 export default function SalesTable() {
@@ -20,7 +20,7 @@ export default function SalesTable() {
         <tbody>
           {saleItems.map(item => (
             <tr
-              key={item.productVariantId}
+              key={item.variantId}
               className="border-b border-[#0ea5a3]/30 text-lg"
             >
               <td className="py-3 px-5 text-left font-semibold">
