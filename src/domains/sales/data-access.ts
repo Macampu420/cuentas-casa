@@ -3,7 +3,8 @@ import { SaleInputSchema } from "./schemas/sale";
 import { SaleInput } from "./types";
 import { sales } from "./models/sale";
 import { saleItems } from "./models/saleItem";
-import { and, gte, lte } from "drizzle-orm";
+import { and, gte, lt } from "drizzle-orm";
+import { getTodayRangeUtc } from "@/lib/timezone";
 
 export async function createSale(saleInput: SaleInput) {
   const parsed = SaleInputSchema.parse(saleInput);
@@ -56,14 +57,12 @@ export async function createSale(saleInput: SaleInput) {
 }
 
 export async function getTodaySales() {
-  const today = new Date();
-  const startOfDay = new Date(today.setHours(0, 0, 0, 0));
-  const endOfDay = new Date(today.setHours(23, 59, 59, 999));
+  const { startUtc, nextStartUtc } = getTodayRangeUtc();
 
   const todaySales = await db
     .select()
     .from(sales)
-    .where(and(gte(sales.soldAt, startOfDay), lte(sales.soldAt, endOfDay)));
+    .where(and(gte(sales.soldAt, startUtc), lt(sales.soldAt, nextStartUtc)));
 
   return todaySales;
 }

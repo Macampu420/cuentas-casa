@@ -1,14 +1,11 @@
 import { db } from "@/db/client";
 import { sales } from "@/domains/sales/models/sale";
 import { saleItems } from "@/domains/sales/models/saleItem";
-import { and, gte, lte, eq, sum } from "drizzle-orm";
+import { and, gte, lt, eq, sum } from "drizzle-orm";
+import { getTodayRangeUtc } from "@/lib/timezone";
 
 export async function getTodaySalesByOrg() {
-  const now = new Date();
-  const startOfDay = new Date(now);
-  startOfDay.setHours(0, 0, 0, 0);
-  const endOfDay = new Date(now);
-  endOfDay.setHours(23, 59, 59, 999);
+  const { startUtc, nextStartUtc } = getTodayRangeUtc();
 
   const rows = await db
     .select({
@@ -17,7 +14,7 @@ export async function getTodaySalesByOrg() {
     })
     .from(saleItems)
     .innerJoin(sales, eq(saleItems.saleId, sales.id))
-    .where(and(gte(sales.soldAt, startOfDay), lte(sales.soldAt, endOfDay)))
+    .where(and(gte(sales.soldAt, startUtc), lt(sales.soldAt, nextStartUtc)))
     .groupBy(saleItems.organization);
 
   return rows.map(row => ({
@@ -27,11 +24,7 @@ export async function getTodaySalesByOrg() {
 }
 
 export async function getTotalSoldToday() {
-  const now = new Date();
-  const startOfDay = new Date(now);
-  startOfDay.setHours(0, 0, 0, 0);
-  const endOfDay = new Date(now);
-  endOfDay.setHours(23, 59, 59, 999);
+  const { startUtc, nextStartUtc } = getTodayRangeUtc();
 
   const rows = await db
     .select({
@@ -39,7 +32,7 @@ export async function getTotalSoldToday() {
     })
     .from(saleItems)
     .innerJoin(sales, eq(saleItems.saleId, sales.id))
-    .where(and(gte(sales.soldAt, startOfDay), lte(sales.soldAt, endOfDay)));
+    .where(and(gte(sales.soldAt, startUtc), lt(sales.soldAt, nextStartUtc)));
 
   return rows[0].totalSold ?? 0;
 }

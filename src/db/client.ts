@@ -11,6 +11,13 @@ const pool = new pg.Pool({
   connectionTimeoutMillis: 5000,
 });
 
+// Ensure all sessions run in UTC so defaults like now() are UTC
+pool.on("connect", client => {
+  client.query("SET TIME ZONE 'UTC'").catch(() => {
+    // ignore
+  });
+});
+
 pool
   .connect()
   .then(client => {
