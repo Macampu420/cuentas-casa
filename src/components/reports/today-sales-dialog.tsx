@@ -45,7 +45,7 @@ export default function TodaySalesDialog() {
 
   return (
     <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-      <DialogContent>
+      <DialogContent className="max-h-[80vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Ventas de hoy</DialogTitle>
         </DialogHeader>
@@ -59,9 +59,10 @@ export default function TodaySalesDialog() {
               <strong>Ventas por organización:</strong>
             </p>
             <ul className="list-disc list-inside">
-              {salesByOrg.map(org => (
-                <li key={org.organization}>
-                  {org.organization}: {formatCOP(org.totalSold)}
+              {salesByOrg.map(salesOrganizationRow => (
+                <li key={salesOrganizationRow.organization}>
+                  {salesOrganizationRow.organization}:{" "}
+                  {formatCOP(salesOrganizationRow.totalSold)}
                 </li>
               ))}
             </ul>
